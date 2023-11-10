@@ -10,6 +10,7 @@ import lombok.*;
 @Entity
 @Table(name = "marca_coche")
 @AllArgsConstructor
+@NoArgsConstructor
 @Setter
 @Getter
 public class MarcaCocheEntity {

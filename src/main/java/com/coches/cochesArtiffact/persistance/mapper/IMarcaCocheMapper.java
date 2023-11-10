@@ -20,7 +20,7 @@ public interface IMarcaCocheMapper {
      * source : Entidad origen, Target : Entidad destino
      */
     @Mapping(source = "id", target = "id")
-    @Mapping(source = "Description", target = "Description")
+    @Mapping(source = "description", target = "description")
     MarcaCochePojo toMarcaCochePojo(MarcaCocheEntity marcaEntity);
 
     /**
