@@ -1,6 +1,6 @@
 package com.coches.cochesArtiffact.persistance.repository;
 
-import com.coches.cochesArtiffact.dominio.pojo.MarcaCochePojo;
+import com.coches.cochesArtiffact.dominio.dto.MarcaCocheDto;
 import com.coches.cochesArtiffact.dominio.repository.IMarcaCocheRepository;
 import com.coches.cochesArtiffact.persistance.entity.MarcaCocheEntity;
 import com.coches.cochesArtiffact.persistance.mapper.IMarcaCocheMapper;
@@ -19,7 +19,7 @@ import java.util.Optional;
 public class MarcaCarroRepository implements IMarcaCocheRepository {
 
     /**
-     * CRUD de marcacoche 
+     * CRUD de marcacoche
      */
     private final IMarcaCocheCrudRepository iMarcaCocheCrudRepository;
 
@@ -31,17 +31,18 @@ public class MarcaCarroRepository implements IMarcaCocheRepository {
 
     /**
      * Devuelve una lista con todas la Marcas de coche existentes
+     *
      * @return lista de marcas
      */
     @Override
-    public List<MarcaCochePojo> getAll() {
-        return iMarcaCocheMapper.toMarcasCochePojo(iMarcaCocheCrudRepository.findAll()) ;
+    public List<MarcaCocheDto> getAll() {
+        return iMarcaCocheMapper.toMarcasCocheDto(iMarcaCocheCrudRepository.findAll());
     }
 
     @Override // evitar NullPointerExeption
-    public Optional<MarcaCochePojo> getMarcaCoche(Integer id) {
+    public Optional<MarcaCocheDto> getMarcaCoche(Integer id) {
         return iMarcaCocheCrudRepository.findById(id)
-                .map(iMarcaCocheMapper::toMarcaCochePojo); // metodo por referencia
+                .map(iMarcaCocheMapper::toMarcaCocheDto); // metodo por referencia
 
         // OR LAmbda return iMarcaCocheCrudRepository.findById(id).
         // map(marcaCocheEntity -> iMarcaCocheMapper.toMarcaCochePojo(marcaCocheEntity));
@@ -50,19 +51,19 @@ public class MarcaCarroRepository implements IMarcaCocheRepository {
     /**
      * recibe un pojo lo transforma en entidad para guardarlo
      * y despues retornar la entidad transfomandola nuevamente a pojo
+     *
      * @param newMarcaCoche marca coche a guardar
      * @return pojo guardado
      */
     @Override
-    public MarcaCochePojo save(MarcaCochePojo newMarcaCoche) {
+    public MarcaCocheDto save(MarcaCocheDto newMarcaCoche) {
 
         MarcaCocheEntity marcaCocheEntity = iMarcaCocheMapper.toMarcaCocheEntity(newMarcaCoche);
 
-        return iMarcaCocheMapper.toMarcaCochePojo(iMarcaCocheCrudRepository.save(marcaCocheEntity))  ;
+        return iMarcaCocheMapper.toMarcaCocheDto(iMarcaCocheCrudRepository.save(marcaCocheEntity));
     }
 
     /**
-     *
      * @param idMarcaCoche id de MarcaCoche a eliminar
      */
     @Override

@@ -1,15 +1,13 @@
 package com.coches.cochesArtiffact.controller;
 
-import com.coches.cochesArtiffact.dominio.pojo.MarcaCochePojo;
+import com.coches.cochesArtiffact.dominio.dto.MarcaCocheDto;
 import com.coches.cochesArtiffact.dominio.service.IMarcaCocheServicio;
-import com.coches.cochesArtiffact.dominio.service.MarcaCocheServicio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * controlador REST de marca coche
@@ -28,7 +26,7 @@ public class MarcaCarroControlador {
      * @return estado
      */
     @GetMapping()
-    public ResponseEntity<List<MarcaCochePojo>>  getAll(){
+    public ResponseEntity<List<MarcaCocheDto>>  getAll(){
         return ResponseEntity.status(HttpStatus.OK).body(iMarcaCocheServicio.getAll());
     }
 
@@ -38,20 +36,20 @@ public class MarcaCarroControlador {
      * @return estado 404 o retorna marca encontrada segun su id
      */
     @GetMapping(path = "/{id}")
-    public ResponseEntity<MarcaCochePojo> getMarcaCoche( @PathVariable Integer id){
+    public ResponseEntity<MarcaCocheDto> getMarcaCoche(@PathVariable Integer id){
         return ResponseEntity.of(iMarcaCocheServicio.getMarcaCoche(id));
     }
 
     /**
      * Guarda una marca
-     * @param marcaCochePojo marca cochea crear
+     * @param marcaCocheDto marca cochea crear
      * @return Estado Ok
      */
     @PostMapping()
-    public ResponseEntity<MarcaCochePojo> save(@RequestBody MarcaCochePojo marcaCochePojo){
+    public ResponseEntity<MarcaCocheDto> save(@RequestBody MarcaCocheDto marcaCocheDto){
         try {
             return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(iMarcaCocheServicio.save(marcaCochePojo));
+                    .body(iMarcaCocheServicio.save(marcaCocheDto));
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build() ;
         }
@@ -64,11 +62,11 @@ public class MarcaCarroControlador {
      * @return marca mactualizada
      */
     @PatchMapping
-    public ResponseEntity<MarcaCochePojo> update(@RequestBody MarcaCochePojo macaCochePojo) {
+    public ResponseEntity<MarcaCocheDto> update(@RequestBody MarcaCocheDto macaCochePojo) {
 
-        MarcaCochePojo marcaCochePojo = iMarcaCocheServicio.update(macaCochePojo);
+        MarcaCocheDto marcaCocheDto = iMarcaCocheServicio.update(macaCochePojo);
 
-        if (marcaCochePojo == null) {
+        if (marcaCocheDto == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         } else {
             return ResponseEntity.status(HttpStatus.OK)

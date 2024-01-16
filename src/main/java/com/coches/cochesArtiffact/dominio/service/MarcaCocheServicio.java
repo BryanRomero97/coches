@@ -1,13 +1,9 @@
 package com.coches.cochesArtiffact.dominio.service;
 
-import com.coches.cochesArtiffact.dominio.pojo.MarcaCochePojo;
+import com.coches.cochesArtiffact.dominio.dto.MarcaCocheDto;
 import com.coches.cochesArtiffact.dominio.repository.IMarcaCocheRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +22,7 @@ public class MarcaCocheServicio implements IMarcaCocheServicio {
      * @return lista de marcas
      */
     @Override
-    public List<MarcaCochePojo> getAll() {
+    public List<MarcaCocheDto> getAll() {
         return iMarcaCocheRepository.getAll();
     }
 
@@ -36,17 +32,17 @@ public class MarcaCocheServicio implements IMarcaCocheServicio {
      * @return marca segun id
      */
     @Override
-    public Optional<MarcaCochePojo> getMarcaCoche(Integer id) {
+    public Optional<MarcaCocheDto> getMarcaCoche(Integer id) {
         return iMarcaCocheRepository.getMarcaCoche(id);
     }
 
     @Override
-    public MarcaCochePojo save(MarcaCochePojo newMarcaCoche) {
+    public MarcaCocheDto save(MarcaCocheDto newMarcaCoche) {
         return iMarcaCocheRepository.save(newMarcaCoche);
     }
 
     @Override
-    public MarcaCochePojo update(MarcaCochePojo newMarcaCoche) {
+    public MarcaCocheDto update(MarcaCocheDto newMarcaCoche) {
         if (iMarcaCocheRepository.getMarcaCoche(newMarcaCoche.getId()).isEmpty()){
             return null;
         }
@@ -64,6 +60,7 @@ public class MarcaCocheServicio implements IMarcaCocheServicio {
         if (iMarcaCocheRepository.getMarcaCoche(idMarcaCoche).isEmpty()){
             return false;
         }
+
 
         iMarcaCocheRepository.delete(idMarcaCoche);
         return true;
